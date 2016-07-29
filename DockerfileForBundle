@@ -6,7 +6,7 @@ RUN npm install -g npm@3 pm2 \
 
 # TODO: remove when https://github.com/npm/npm/issues/9863 is fixed
 RUN cd $(npm root -g)/npm \
- && npm install fs-extra \
+ && npm install --unsafe-perm fs-extra \
  && sed -i -e s/graceful-fs/fs-extra/ -e s/fs\.rename/fs.move/ ./lib/utils/rename.js
 
 # ---------
@@ -16,7 +16,7 @@ RUN cd $(npm root -g)/npm \
 ADD . /opt/app
 WORKDIR /opt/app/programs/server
 
-RUN npm install \
+RUN npm install --unsafe-perm \
   && npm cache clear \
   && mv /opt/app/programs/server/node_modules /opt/
 
