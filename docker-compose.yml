@@ -1,0 +1,20 @@
+meteorapp:
+  image: meteor/issue7512/testcase
+  ports:
+    - "80:80"
+  environment:
+    - "ROOT_URL=http://testcase.dockermachine"
+    - "MONGO_URL=mongodb://mongo:27017/dev"
+      #- "MONGO_OPLOG_URL=mongodb://mongo:27017/local"
+      #- "CLUSTER_DISCOVERY_URL=mongodb://mongo:27017/dev"
+      #- "CLUSTER_SERVICE=web"
+      #- "CLUSTER_WORKERS_COUNT=auto"
+    - "APP_ENV=web"
+  env_file:
+    - ./settings.json
+  links:
+    - mongo
+mongo:
+  image: mongo:3.2.8
+
+

@@ -1,0 +1,13 @@
+{
+  "public": {
+    "app": "testcase",
+    "env": "dev"
+  },
+  "email": {
+    "username": "",
+    "password": "",
+    "host": "smtp.mailgun.org",
+    "port": "587",
+    "domain_suffix": "@example.com"
+  }
+}
