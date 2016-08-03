@@ -1,7 +1,7 @@
-FROM node:4.4.7-slim
+FROM node:4.4.7
 MAINTAINER Alan Blount <alan@zeroasterisk.com>
 
-RUN npm install -g npm@3 pm2 \
+RUN npm install -g npm@3 pm2 node-pre-gyp \
   && npm cache clear
 
 # TODO: remove when https://github.com/npm/npm/issues/9863 is fixed
@@ -16,6 +16,9 @@ RUN cd $(npm root -g)/npm \
 ADD . /opt/app
 WORKDIR /opt/app/programs/server
 
+RUN rm -r npm/node_modules/meteor/npm-bcrypt/node_modules/bcrypt \
+  && npm install bcrypt --production --unsafe-perm
+
 RUN npm install --unsafe-perm \
   && npm cache clear \
   && mv /opt/app/programs/server/node_modules /opt/
@@ -23,6 +26,8 @@ RUN npm install --unsafe-perm \
 RUN mv /opt/app/package.json /opt
 
 WORKDIR /opt
+
+
 RUN npm install --production --unsafe-perm \
   && npm cache clear
 
